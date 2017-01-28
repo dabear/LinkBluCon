@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		72C1B8AA1E3BAFF1006F67DB /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A51E3BAFF1006F67DB /* KVNProgress.m */; };
+		72C1B8AB1E3BAFF1006F67DB /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A71E3BAFF1006F67DB /* KVNProgressConfiguration.m */; };
+		72C1B8AC1E3BAFF1006F67DB /* KVNRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A91E3BAFF1006F67DB /* KVNRotationViewController.m */; };
+		72C1B8B41E3BB00F006F67DB /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8AF1E3BB00F006F67DB /* UIColor+KVNContrast.m */; };
+		72C1B8B51E3BB00F006F67DB /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8B11E3BB00F006F67DB /* UIImage+KVNEmpty.m */; };
+		72C1B8B61E3BB00F006F67DB /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8B31E3BB00F006F67DB /* UIImage+KVNImageEffects.m */; };
+		72C1B8B91E3BB04D006F67DB /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72C1B8B81E3BB04D006F67DB /* KVNProgressView.xib */; };
+		72C1B8BB1E3BBE43006F67DB /* BluConDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8BA1E3BBE43006F67DB /* BluConDeviceManager.swift */; };
+		72C788101E3AEFAE00948B43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7880F1E3AEFAE00948B43 /* AppDelegate.swift */; };
+		72C788121E3AEFAE00948B43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C788111E3AEFAE00948B43 /* ViewController.swift */; };
+		72C788151E3AEFAE00948B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72C788131E3AEFAE00948B43 /* Main.storyboard */; };
+		72C788171E3AEFAE00948B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72C788161E3AEFAE00948B43 /* Assets.xcassets */; };
+		72C7881A1E3AEFAE00948B43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72C788181E3AEFAE00948B43 /* LaunchScreen.storyboard */; };
+		72C788281E3AF2CD00948B43 /* bg0.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C788271E3AF2CD00948B43 /* bg0.png */; };
+		72DF9D7D1E3C622F0047CDCB /* KCFABManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D771E3C622F0047CDCB /* KCFABManager.swift */; };
+		72DF9D7E1E3C622F0047CDCB /* KCFABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D781E3C622F0047CDCB /* KCFABViewController.swift */; };
+		72DF9D7F1E3C622F0047CDCB /* KCFABWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D791E3C622F0047CDCB /* KCFABWindow.swift */; };
+		72DF9D801E3C622F0047CDCB /* KCFloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */; };
+		72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */; };
+		72DF9D821E3C622F0047CDCB /* KCFloatingActionButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */; };
+		72DF9D851E3C6F5D0047CDCB /* bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = 72DF9D841E3C6F5D0047CDCB /* bg1.png */; };
+		80DC7100772F281F80F8720C /* Pods_LinkBluCon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkBluCon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BF53EFD25D634CDF91D7554 /* Pods-LinkBluCon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkBluCon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon.debug.xcconfig"; sourceTree = "<group>"; };
+		72C1B8A31E3BAFF1006F67DB /* LinkBluCon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LinkBluCon-Bridging-Header.h"; sourceTree = "<group>"; };
+		72C1B8A41E3BAFF1006F67DB /* KVNProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgress.h; sourceTree = "<group>"; };
+		72C1B8A51E3BAFF1006F67DB /* KVNProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgress.m; sourceTree = "<group>"; };
+		72C1B8A61E3BAFF1006F67DB /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
+		72C1B8A71E3BAFF1006F67DB /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
+		72C1B8A81E3BAFF1006F67DB /* KVNRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNRotationViewController.h; sourceTree = "<group>"; };
+		72C1B8A91E3BAFF1006F67DB /* KVNRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNRotationViewController.m; sourceTree = "<group>"; };
+		72C1B8AE1E3BB00F006F67DB /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KVNContrast.h"; sourceTree = "<group>"; };
+		72C1B8AF1E3BB00F006F67DB /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KVNContrast.m"; sourceTree = "<group>"; };
+		72C1B8B01E3BB00F006F67DB /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
+		72C1B8B11E3BB00F006F67DB /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
+		72C1B8B21E3BB00F006F67DB /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
+		72C1B8B31E3BB00F006F67DB /* UIImage+KVNImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNImageEffects.m"; sourceTree = "<group>"; };
+		72C1B8B81E3BB04D006F67DB /* KVNProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
+		72C1B8BA1E3BBE43006F67DB /* BluConDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluConDeviceManager.swift; sourceTree = "<group>"; };
+		72C7880C1E3AEFAE00948B43 /* LinkBluCon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkBluCon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		72C7880F1E3AEFAE00948B43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		72C788111E3AEFAE00948B43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		72C788141E3AEFAE00948B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		72C788161E3AEFAE00948B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		72C788191E3AEFAE00948B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		72C7881B1E3AEFAE00948B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72C788271E3AF2CD00948B43 /* bg0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg0.png; sourceTree = "<group>"; };
+		72DF9D771E3C622F0047CDCB /* KCFABManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABManager.swift; sourceTree = "<group>"; };
+		72DF9D781E3C622F0047CDCB /* KCFABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABViewController.swift; sourceTree = "<group>"; };
+		72DF9D791E3C622F0047CDCB /* KCFABWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABWindow.swift; sourceTree = "<group>"; };
+		72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButton.swift; sourceTree = "<group>"; };
+		72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonDelegate.swift; sourceTree = "<group>"; };
+		72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonItem.swift; sourceTree = "<group>"; };
+		72DF9D841E3C6F5D0047CDCB /* bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg1.png; sourceTree = "<group>"; };
+		91CB47FBA5752E8CB999F07F /* Pods-LinkBluCon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkBluCon.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		72C788091E3AEFAE00948B43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80DC7100772F281F80F8720C /* Pods_LinkBluCon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D42572343B7247B2291335E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BF53EFD25D634CDF91D7554 /* Pods-LinkBluCon.debug.xcconfig */,
+				91CB47FBA5752E8CB999F07F /* Pods-LinkBluCon.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		72C1B8A01E3BAFB4006F67DB /* ExternalLibs */ = {
+			isa = PBXGroup;
+			children = (
+				72DF9D831E3C62350047CDCB /* FloatingButton */,
+				72C1B8A11E3BAFCD006F67DB /* KVNProgress */,
+			);
+			name = ExternalLibs;
+			sourceTree = "<group>";
+		};
+		72C1B8A11E3BAFCD006F67DB /* KVNProgress */ = {
+			isa = PBXGroup;
+			children = (
+				72C1B8B71E3BB02D006F67DB /* XIB */,
+				72C1B8AD1E3BAFFC006F67DB /* Categories */,
+				72C1B8A21E3BAFDC006F67DB /* Classes */,
+			);
+			name = KVNProgress;
+			sourceTree = "<group>";
+		};
+		72C1B8A21E3BAFDC006F67DB /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				72C1B8A41E3BAFF1006F67DB /* KVNProgress.h */,
+				72C1B8A51E3BAFF1006F67DB /* KVNProgress.m */,
+				72C1B8A61E3BAFF1006F67DB /* KVNProgressConfiguration.h */,
+				72C1B8A71E3BAFF1006F67DB /* KVNProgressConfiguration.m */,
+				72C1B8A81E3BAFF1006F67DB /* KVNRotationViewController.h */,
+				72C1B8A91E3BAFF1006F67DB /* KVNRotationViewController.m */,
+				72C1B8A31E3BAFF1006F67DB /* LinkBluCon-Bridging-Header.h */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		72C1B8AD1E3BAFFC006F67DB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				72C1B8AE1E3BB00F006F67DB /* UIColor+KVNContrast.h */,
+				72C1B8AF1E3BB00F006F67DB /* UIColor+KVNContrast.m */,
+				72C1B8B01E3BB00F006F67DB /* UIImage+KVNEmpty.h */,
+				72C1B8B11E3BB00F006F67DB /* UIImage+KVNEmpty.m */,
+				72C1B8B21E3BB00F006F67DB /* UIImage+KVNImageEffects.h */,
+				72C1B8B31E3BB00F006F67DB /* UIImage+KVNImageEffects.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		72C1B8B71E3BB02D006F67DB /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				72C1B8B81E3BB04D006F67DB /* KVNProgressView.xib */,
+			);
+			name = XIB;
+			sourceTree = "<group>";
+		};
+		72C788031E3AEFAE00948B43 = {
+			isa = PBXGroup;
+			children = (
+				72C7880E1E3AEFAE00948B43 /* LinkBluCon */,
+				72C788211E3AF14500948B43 /* Resources */,
+				72C7880D1E3AEFAE00948B43 /* Products */,
+				0D42572343B7247B2291335E /* Pods */,
+				72C1B8A01E3BAFB4006F67DB /* ExternalLibs */,
+				BD8DBCCA873A876A07C098FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		72C7880D1E3AEFAE00948B43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				72C7880C1E3AEFAE00948B43 /* LinkBluCon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		72C7880E1E3AEFAE00948B43 /* LinkBluCon */ = {
+			isa = PBXGroup;
+			children = (
+				72C7880F1E3AEFAE00948B43 /* AppDelegate.swift */,
+				72C788111E3AEFAE00948B43 /* ViewController.swift */,
+				72C788131E3AEFAE00948B43 /* Main.storyboard */,
+				72C788161E3AEFAE00948B43 /* Assets.xcassets */,
+				72C788181E3AEFAE00948B43 /* LaunchScreen.storyboard */,
+				72C7881B1E3AEFAE00948B43 /* Info.plist */,
+				72C1B8BA1E3BBE43006F67DB /* BluConDeviceManager.swift */,
+			);
+			path = LinkBluCon;
+			sourceTree = "<group>";
+		};
+		72C788211E3AF14500948B43 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				72C788221E3AF14D00948B43 /* Images */,
+			);
+			name = Resources;
+			path = LinkBluCon;
+			sourceTree = "<group>";
+		};
+		72C788221E3AF14D00948B43 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				72DF9D841E3C6F5D0047CDCB /* bg1.png */,
+				72C788271E3AF2CD00948B43 /* bg0.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		72DF9D831E3C62350047CDCB /* FloatingButton */ = {
+			isa = PBXGroup;
+			children = (
+				72DF9D771E3C622F0047CDCB /* KCFABManager.swift */,
+				72DF9D781E3C622F0047CDCB /* KCFABViewController.swift */,
+				72DF9D791E3C622F0047CDCB /* KCFABWindow.swift */,
+				72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */,
+				72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */,
+				72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */,
+			);
+			name = FloatingButton;
+			sourceTree = "<group>";
+		};
+		BD8DBCCA873A876A07C098FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		72C7880B1E3AEFAE00948B43 /* LinkBluCon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 72C7881E1E3AEFAE00948B43 /* Build configuration list for PBXNativeTarget "LinkBluCon" */;
+			buildPhases = (
+				B5967CAC4F95A82314917085 /* [CP] Check Pods Manifest.lock */,
+				72C788081E3AEFAE00948B43 /* Sources */,
+				72C788091E3AEFAE00948B43 /* Frameworks */,
+				72C7880A1E3AEFAE00948B43 /* Resources */,
+				E7FE13085AA5B977452E4C45 /* [CP] Embed Pods Frameworks */,
+				EAFA202C8E23EC24183F3B70 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LinkBluCon;
+			productName = LinkBluCon;
+			productReference = 72C7880C1E3AEFAE00948B43 /* LinkBluCon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		72C788041E3AEFAE00948B43 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Gorugantham, Ramu Raghu Vams";
+				TargetAttributes = {
+					72C7880B1E3AEFAE00948B43 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = N2GLBCHXL5;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 72C788071E3AEFAE00948B43 /* Build configuration list for PBXProject "LinkBluCon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 72C788031E3AEFAE00948B43;
+			productRefGroup = 72C7880D1E3AEFAE00948B43 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				72C7880B1E3AEFAE00948B43 /* LinkBluCon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		72C7880A1E3AEFAE00948B43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72DF9D851E3C6F5D0047CDCB /* bg1.png in Resources */,
+				72C7881A1E3AEFAE00948B43 /* LaunchScreen.storyboard in Resources */,
+				72C1B8B91E3BB04D006F67DB /* KVNProgressView.xib in Resources */,
+				72C788171E3AEFAE00948B43 /* Assets.xcassets in Resources */,
+				72C788151E3AEFAE00948B43 /* Main.storyboard in Resources */,
+				72C788281E3AF2CD00948B43 /* bg0.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B5967CAC4F95A82314917085 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E7FE13085AA5B977452E4C45 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAFA202C8E23EC24183F3B70 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		72C788081E3AEFAE00948B43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72C788121E3AEFAE00948B43 /* ViewController.swift in Sources */,
+				72DF9D821E3C622F0047CDCB /* KCFloatingActionButtonItem.swift in Sources */,
+				72DF9D7D1E3C622F0047CDCB /* KCFABManager.swift in Sources */,
+				72C1B8B51E3BB00F006F67DB /* UIImage+KVNEmpty.m in Sources */,
+				72DF9D801E3C622F0047CDCB /* KCFloatingActionButton.swift in Sources */,
+				72DF9D7F1E3C622F0047CDCB /* KCFABWindow.swift in Sources */,
+				72C1B8B61E3BB00F006F67DB /* UIImage+KVNImageEffects.m in Sources */,
+				72C1B8AB1E3BAFF1006F67DB /* KVNProgressConfiguration.m in Sources */,
+				72DF9D7E1E3C622F0047CDCB /* KCFABViewController.swift in Sources */,
+				72C788101E3AEFAE00948B43 /* AppDelegate.swift in Sources */,
+				72C1B8B41E3BB00F006F67DB /* UIColor+KVNContrast.m in Sources */,
+				72C1B8AC1E3BAFF1006F67DB /* KVNRotationViewController.m in Sources */,
+				72C1B8BB1E3BBE43006F67DB /* BluConDeviceManager.swift in Sources */,
+				72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */,
+				72C1B8AA1E3BAFF1006F67DB /* KVNProgress.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		72C788131E3AEFAE00948B43 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				72C788141E3AEFAE00948B43 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		72C788181E3AEFAE00948B43 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				72C788191E3AEFAE00948B43 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		72C7881C1E3AEFAE00948B43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		72C7881D1E3AEFAE00948B43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		72C7881F1E3AEFAE00948B43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BF53EFD25D634CDF91D7554 /* Pods-LinkBluCon.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N2GLBCHXL5;
+				INFOPLIST_FILE = LinkBluCon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ambrosia.LinkBluCon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LinkBluCon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		72C788201E3AEFAE00948B43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91CB47FBA5752E8CB999F07F /* Pods-LinkBluCon.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = N2GLBCHXL5;
+				INFOPLIST_FILE = LinkBluCon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ambrosia.LinkBluCon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LinkBluCon-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		72C788071E3AEFAE00948B43 /* Build configuration list for PBXProject "LinkBluCon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72C7881C1E3AEFAE00948B43 /* Debug */,
+				72C7881D1E3AEFAE00948B43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		72C7881E1E3AEFAE00948B43 /* Build configuration list for PBXNativeTarget "LinkBluCon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72C7881F1E3AEFAE00948B43 /* Debug */,
+				72C788201E3AEFAE00948B43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 72C788041E3AEFAE00948B43 /* Project object */;
+}

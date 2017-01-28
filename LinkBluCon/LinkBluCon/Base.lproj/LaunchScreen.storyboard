@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg0.png" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-Zx-egB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LinkBluCon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="pej-zr-iGj">
+                                <rect key="frame" x="0.0" y="234" width="320" height="100"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="64"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pej-zr-iGj" firstAttribute="centerY" secondItem="RfU-Zx-egB" secondAttribute="centerY" id="0xB-sH-LHf"/>
+                            <constraint firstItem="RfU-Zx-egB" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="1N5-rm-8ge"/>
+                            <constraint firstItem="RfU-Zx-egB" firstAttribute="leading" secondItem="pej-zr-iGj" secondAttribute="leading" id="HqL-Nw-Aty"/>
+                            <constraint firstItem="pej-zr-iGj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="214" id="KHy-Nj-agn"/>
+                            <constraint firstAttribute="trailing" secondItem="RfU-Zx-egB" secondAttribute="trailing" id="gLP-vg-hPQ"/>
+                            <constraint firstItem="RfU-Zx-egB" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mUa-9y-eAm"/>
+                            <constraint firstItem="RfU-Zx-egB" firstAttribute="trailing" secondItem="pej-zr-iGj" secondAttribute="trailing" id="paS-pa-z7N"/>
+                            <constraint firstItem="RfU-Zx-egB" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="pvG-9x-0BR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="50.625" y="372.88732394366195"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg0.png" width="1080" height="1920"/>
+    </resources>
+</document>
