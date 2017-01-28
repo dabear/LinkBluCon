@@ -21,21 +21,13 @@ protocol BluConDeviceManagerDelegate: class {
     func reconnectingBluConDevice()
 }
 
-public enum AppError : Error {
-    case invalidState
-    case resetting
-    case poweredOff
-    case unknown
-}
-
-
 public enum DeviceStatus {
     case ready
     case resetting
     case poweredOff
     case unknown
     case unsupported
-
+    
     func toString() -> String {
         switch self {
         case .ready:
@@ -53,18 +45,21 @@ public enum DeviceStatus {
 }
 
 class BluConDeviceManager {
-    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-
-    private let bluconBluetoothDeviceName: String = "blucon"
+    
     weak var delegate: BluConDeviceManagerDelegate? = nil
     static let sharedInstance: BluConDeviceManager = BluConDeviceManager()
     private let connectionManager: CentralManager = CentralManager(options: [CBCentralManagerOptionRestoreIdentifierKey : "com.ambrosia.linkblucon.central-manager" as NSString])
     private var discoveredPeripherals = [Peripheral]()
     private var peripheralConnected: Peripheral? = nil
+    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let bluconBluetoothDeviceName: String = "blucon"
+    
     
     func start() {
+        
         let bluetoothDeviceStateChanges = connectionManager.whenStateChanges()
+        
         bluetoothDeviceStateChanges.onSuccess { (ManagerState) in
             switch ManagerState {
             case .poweredOn:
@@ -80,19 +75,25 @@ class BluConDeviceManager {
                 self.delegate?.didStartWithDeviceStatus(status: DeviceStatus.unknown)
             }
         }
+        
         bluetoothDeviceStateChanges.onFailure { (Error) in
             self.delegate?.didStartWithError(error: Error)
         }
     }
     
     func scanForPeripherals() {
+        
         discoveredPeripherals.removeAll()
+        
         let scanningResults = connectionManager.startScanning(forServiceUUIDs: [desiredServiceUUID], capacity: 10, timeout: Double(60), options: [CBCentralManagerScanOptionAllowDuplicatesKey : false])
+        
         scanningResults.onSuccess { (Peripheral) in
+            
             if Peripheral.name.lowercased() == self.bluconBluetoothDeviceName {
                 self.discoveredPeripherals.append(Peripheral)
                 self.delegate?.didDiscoverBluConPeripherals(peripherals: self.discoveredPeripherals)
             }
+            
             print("Discovered peripheral: '\(Peripheral.name)', \(Peripheral.identifier.uuidString)")
             
         }
@@ -104,6 +105,7 @@ class BluConDeviceManager {
     }
     
     func connectToPeripheral(peripheral: Peripheral) {
+        
         peripheralConnected = nil
         let connectionFuture = peripheral.connect(connectionTimeout: 10, capacity: 1)
         
@@ -116,7 +118,9 @@ class BluConDeviceManager {
         
         connectionFuture.onFailure { [weak self] error in
             self.forEach { strongSelf in
+                
                 print("Connection failed: '\(peripheral.name)', \(peripheral.identifier.uuidString), timeout count=\(peripheral.timeoutCount), max timeouts=\(10), disconnect count=\(peripheral.disconnectionCount), max disconnections=\(10)")
+                
                 switch error {
                 case PeripheralError.forcedDisconnect:
                     self?.delegate?.peripheralDisconnected(status:.forcedDisconnect)
@@ -143,8 +147,11 @@ class BluConDeviceManager {
     }
     
     private func discoverServices() {
+        
         if let connectedPeripheral = peripheralConnected {
+            
             let peripheralDiscoveryFuture = connectedPeripheral.discoverServices(nil)
+            
             peripheralDiscoveryFuture.onSuccess(completion: { (Peripheral) in
                 if Peripheral.services.count == 1  {
                     if let service = Peripheral.services.first{
@@ -161,10 +168,14 @@ class BluConDeviceManager {
     }
     
     private func discoverCharacteristicsForService(service: Service) {
+        
         let peripheralCharacteristicsFuture = service.discoverCharacteristics([desiredReceiveCharacteristicUUID])
+        
         peripheralCharacteristicsFuture.onSuccess { (Service) in
             for (_, characteristic) in service.characteristics.enumerated() {
+                
                 let notifiedFuture: Future<Characteristic>? = characteristic.canNotify ? characteristic.startNotifying(): nil
+                
                 notifiedFuture?.onSuccess(completion: { (characteristic) in
                     print("started notifications for characteristic - \(characteristic.uuid)")
                     if let futureNotifications = notifiedFuture {
@@ -172,15 +183,16 @@ class BluConDeviceManager {
                         self.getNotificationUpdatesForCharacteristic(futureCharacteristic: futureNotifications, characteristic: characteristic)
                     }
                 })
+                
                 notifiedFuture?.onFailure(completion: { (Error) in
                     self.delegate?.didStartListeningToCharacteristicNotifications(status: false)
                     print("notifications failed for characteristic - \(self.desiredReceiveCharacteristicUUID)")
-
+                    
                 })
                 
             }
         }
-
+        
     }
     
     private func getNotificationUpdatesForCharacteristic(futureCharacteristic: Future<Characteristic>, characteristic: Characteristic ) {
@@ -202,15 +214,10 @@ class BluConDeviceManager {
         }
         
         receiveNotificationUpdatesFuture.onFailure { (Error) in
-           // try discovering the services again...
+            // try discovering the services again...
             print("notification updates failed for characteristic \(characteristic)")
             self.discoverServices()
         }
-        
-        
-
     }
-    
-    
     
 }

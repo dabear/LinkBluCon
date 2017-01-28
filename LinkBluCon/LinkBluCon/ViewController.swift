@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreBluetooth
 import BlueCapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate {
@@ -55,7 +54,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +71,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: TableViewDelegate
@@ -160,13 +157,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func didStartListeningToCharacteristicNotifications(status: Bool) {
+        
         dataFromBluConDevice.removeAll()
         let peripheralName = self.connectedPeripheral?.name
         dataFromBluConDevice.append("Reading data from device - \(peripheralName!)")
+        
         KVNProgress.showSuccess(withStatus: (deviceRecentlyDisconnected) ? "BluCon device re-connected." : "BluCon device connected.")
         deviceRecentlyDisconnected = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            
             self.mode = .readingData
             if self.mode == .readingData {
                 self.postConnectionDeviceStatusLabel.text = "Status : Connected"
@@ -176,6 +176,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.addFabButton()
             self.peripheralsTableView.reloadData()
             KVNProgress.dismiss()
+            
         }
         
         print("started listening to characteristics")
@@ -225,7 +226,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         let settingsAction: UIAlertAction = UIAlertAction.init(title: "Settings", style: .default, handler: { (action) in
             let url = NSURL(string: "App-Prefs:root=Bluetooth")
-            UIApplication.shared.open(url as! URL, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url as! URL, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(url as! URL)
+            }
         })
         alertController.addAction(cancelAction)
         if showSettingsButton {
