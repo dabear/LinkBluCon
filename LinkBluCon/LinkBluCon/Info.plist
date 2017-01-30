@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Requires to Connect to BluCon Device</string>
+	<string>Requires to Connect to BLUCON Device</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

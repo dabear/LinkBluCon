@@ -134,7 +134,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         deviceReadyForScanning = false
     }
     func didDiscoverBluConPeripherals(peripherals: [Peripheral]) {
-        devicesDiscovered = Array(Set(peripherals))
+        devicesDiscovered = peripherals
         peripheralsTableView.reloadData()
     }
     
@@ -149,7 +149,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         connectedPeripheral = nil
         let str = PeripheralErrorToString(error: status)
         if str != "" {
-            KVNProgress.showError(withStatus: "BluCon device disconnected")
+            KVNProgress.showError(withStatus: "BLUCON device disconnected")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 KVNProgress.dismiss()
             }
@@ -162,7 +162,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let peripheralName = self.connectedPeripheral?.name
         dataFromBluConDevice.append("Reading data from device - \(peripheralName!)")
         
-        KVNProgress.showSuccess(withStatus: (deviceRecentlyDisconnected) ? "BluCon device re-connected." : "BluCon device connected.")
+        KVNProgress.showSuccess(withStatus: (deviceRecentlyDisconnected) ? "BLUCON device re-connected." : "BLUCON device connected.")
         deviceRecentlyDisconnected = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -189,10 +189,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func reconnectingBluConDevice() {
-        KVNProgress.showError(withStatus: "BluCon device disconnected")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            KVNProgress.dismiss()
-        }
+        KVNProgress.show(withStatus: "Reconnecting to the  device...")
         self.postConnectionDeviceStatusLabel.text = "Status : Disconnected"
         deviceRecentlyDisconnected = true
     }

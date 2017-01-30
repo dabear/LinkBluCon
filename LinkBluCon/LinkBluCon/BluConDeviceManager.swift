@@ -31,11 +31,11 @@ public enum DeviceStatus {
     func toString() -> String {
         switch self {
         case .ready:
-            return "device is ready to scan for BluCon devices"
+            return "device is ready to scan for BLUCON devices"
         case .resetting:
             return "Bluetooth device is resetting... please wait..."
         case .unsupported:
-            return "This device is either unauthorized or unsupported to connect to BluCon Device. Please close the app."
+            return "This device is either unauthorized or unsupported to connect to BLUCON Device. Please close the app."
         case .unknown:
             return "Unable to determine bluetooth state. Please turn On/Off the bluetooth and try again."
         case .poweredOff:
@@ -85,17 +85,25 @@ class BluConDeviceManager {
         
         discoveredPeripherals.removeAll()
         
-        let scanningResults = connectionManager.startScanning(forServiceUUIDs: [desiredServiceUUID], capacity: 10, timeout: Double(60), options: [CBCentralManagerScanOptionAllowDuplicatesKey : false])
+        let scanningResults = connectionManager.startScanning(forServiceUUIDs: nil, capacity: 10, timeout: Double(60), options: [CBCentralManagerScanOptionAllowDuplicatesKey : false])
         
         scanningResults.onSuccess { (Peripheral) in
             
             if Peripheral.name.lowercased() == self.bluconBluetoothDeviceName {
                 self.discoveredPeripherals.append(Peripheral)
+                let orderedSet = NSOrderedSet.init(array: self.discoveredPeripherals)
+                if let array = orderedSet.array as? [Peripheral] {
+                    self.discoveredPeripherals = array
+                }
                 self.delegate?.didDiscoverBluConPeripherals(peripherals: self.discoveredPeripherals)
             }
             
             print("Discovered peripheral: '\(Peripheral.name)', \(Peripheral.identifier.uuidString)")
             
+        }
+        
+        scanningResults.onFailure { (Error) in
+            print("scanning peripherals failed due to error - \(Error)")
         }
         
     }
