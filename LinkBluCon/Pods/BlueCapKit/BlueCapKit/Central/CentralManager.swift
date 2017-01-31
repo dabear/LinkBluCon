@@ -131,7 +131,7 @@ public class CentralManager : NSObject, CBCentralManagerDelegate {
     // MARK: Manage Peripherals
 
     func connect(_ peripheral: Peripheral, options: [String : Any]? = nil) {
-        cbCentralManager.connect(peripheral.cbPeripheral, options: options)
+        cbCentralManager.connect(peripheral.cbPeripheral, options: [CBConnectPeripheralOptionNotifyOnConnectionKey: true, CBConnectPeripheralOptionNotifyOnDisconnectionKey: true, CBConnectPeripheralOptionNotifyOnNotificationKey: true])
     }
     
     func cancelPeripheralConnection(_ peripheral: Peripheral) {

@@ -134,7 +134,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         deviceReadyForScanning = false
     }
     func didDiscoverBluConPeripherals(peripherals: [Peripheral]) {
-        devicesDiscovered = peripherals
+        let orderedSet = NSOrderedSet.init(array:peripherals)
+        if let array = orderedSet.array as? [Peripheral] {
+            self.devicesDiscovered = array
+        }
         peripheralsTableView.reloadData()
     }
     

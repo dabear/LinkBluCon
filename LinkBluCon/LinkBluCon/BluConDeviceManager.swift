@@ -53,7 +53,7 @@ class BluConDeviceManager {
     private var peripheralConnected: Peripheral? = nil
     private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
     private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let bluconBluetoothDeviceName: String = "blucon"
+    private let bluconBluetoothDeviceName: String = "b"
     
     
     func start() {
@@ -89,7 +89,7 @@ class BluConDeviceManager {
         
         scanningResults.onSuccess { (Peripheral) in
             
-            if Peripheral.name.lowercased() == self.bluconBluetoothDeviceName {
+            if Peripheral.name.lowercased().hasPrefix(self.bluconBluetoothDeviceName) {
                 self.discoveredPeripherals.append(Peripheral)
                 let orderedSet = NSOrderedSet.init(array: self.discoveredPeripherals)
                 if let array = orderedSet.array as? [Peripheral] {
