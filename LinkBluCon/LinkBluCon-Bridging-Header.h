@@ -8,4 +8,9 @@
 #import "UIColor+KVNContrast.h"
 #import "UIImage+KVNEmpty.h"
 #import "UIImage+KVNImageEffects.h"
+#import "BEMSimpleLineGraphView.h"
+#import "BEMCircle.h"
+#import "BEMLine.h"
+#import "BEMAverageLine.h"
+#import "BEMPermanentPopupView.h"
 

@@ -8,6 +8,18 @@
 
 import UIKit
 import BlueCapKit
+import CoreFoundation
+
+class NonRotatingNavigationController : UINavigationController {
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    override var shouldAutorotate: Bool {
+        return false
+    }
+}
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate {
     
@@ -17,6 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var postConnectionDeviceNameLabel: UILabel!
     @IBOutlet weak var postConnectionDeviceStatusLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     var devicesDiscovered:[Peripheral] = [Peripheral]()
     let bluConManager = BluConDeviceManager.sharedInstance
     var connectedPeripheral: Peripheral?
@@ -25,6 +38,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var dataFromBluConDevice = [String]()
     var mode: DeviceMode = .deviceScanning
     var fab = KCFloatingActionButton()
+    let tapRecognizer = UITapGestureRecognizer()
+
     
     enum DeviceMode {
         case deviceScanning, readingData
@@ -49,11 +64,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         devicesDiscovered.removeAll()
         dataFromBluConDevice.removeAll()
         mode = .deviceScanning
+        tapRecognizer.numberOfTapsRequired = 4
+        tapRecognizer.addTarget(self, action: #selector(invokeDebugMode))
+        titleLabel.addGestureRecognizer(tapRecognizer)
+        titleLabel.isUserInteractionEnabled = true
+    }
+    
+    func invokeDebugMode() {
+        print("debugMode")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "demoNav")
+        self.present(controller, animated: true, completion: nil)
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+    }
+    
+    func timerComplete() {
+        let timeStamp = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
+        print("Hello world - \(timeStamp)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         bluConManager.start()
         KVNProgress.show(withStatus: "Loading, Please wait...")
         scanButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17.0)
+        
     }
     
     override func didReceiveMemoryWarning() {

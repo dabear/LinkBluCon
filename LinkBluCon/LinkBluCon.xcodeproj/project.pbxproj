@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		728D0A101E4673E5006D879C /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A0F1E4673E5006D879C /* DemoViewController.swift */; };
+		728D0A1B1E467C1F006D879C /* BEMSimpleLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A121E467C1F006D879C /* BEMSimpleLineGraphView.m */; };
+		728D0A1C1E467C1F006D879C /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A141E467C1F006D879C /* BEMCircle.m */; };
+		728D0A1D1E467C1F006D879C /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A161E467C1F006D879C /* BEMLine.m */; };
+		728D0A1E1E467C1F006D879C /* BEMAverageLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A181E467C1F006D879C /* BEMAverageLine.m */; };
+		728D0A1F1E467C1F006D879C /* BEMPermanentPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 728D0A1A1E467C1F006D879C /* BEMPermanentPopupView.m */; };
 		72C1B8AA1E3BAFF1006F67DB /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A51E3BAFF1006F67DB /* KVNProgress.m */; };
 		72C1B8AB1E3BAFF1006F67DB /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A71E3BAFF1006F67DB /* KVNProgressConfiguration.m */; };
 		72C1B8AC1E3BAFF1006F67DB /* KVNRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C1B8A91E3BAFF1006F67DB /* KVNRotationViewController.m */; };
@@ -20,20 +26,29 @@
 		72C788151E3AEFAE00948B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72C788131E3AEFAE00948B43 /* Main.storyboard */; };
 		72C788171E3AEFAE00948B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72C788161E3AEFAE00948B43 /* Assets.xcassets */; };
 		72C7881A1E3AEFAE00948B43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72C788181E3AEFAE00948B43 /* LaunchScreen.storyboard */; };
-		72C788281E3AF2CD00948B43 /* bg0.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C788271E3AF2CD00948B43 /* bg0.png */; };
 		72DF9D7D1E3C622F0047CDCB /* KCFABManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D771E3C622F0047CDCB /* KCFABManager.swift */; };
 		72DF9D7E1E3C622F0047CDCB /* KCFABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D781E3C622F0047CDCB /* KCFABViewController.swift */; };
 		72DF9D7F1E3C622F0047CDCB /* KCFABWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D791E3C622F0047CDCB /* KCFABWindow.swift */; };
 		72DF9D801E3C622F0047CDCB /* KCFloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */; };
 		72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */; };
 		72DF9D821E3C622F0047CDCB /* KCFloatingActionButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */; };
-		72DF9D851E3C6F5D0047CDCB /* bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = 72DF9D841E3C6F5D0047CDCB /* bg1.png */; };
 		80DC7100772F281F80F8720C /* Pods_LinkBluCon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkBluCon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF53EFD25D634CDF91D7554 /* Pods-LinkBluCon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkBluCon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon.debug.xcconfig"; sourceTree = "<group>"; };
+		728D0A0F1E4673E5006D879C /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		728D0A111E467C1F006D879C /* BEMSimpleLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMSimpleLineGraphView.h; sourceTree = "<group>"; };
+		728D0A121E467C1F006D879C /* BEMSimpleLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMSimpleLineGraphView.m; sourceTree = "<group>"; };
+		728D0A131E467C1F006D879C /* BEMCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCircle.h; sourceTree = "<group>"; };
+		728D0A141E467C1F006D879C /* BEMCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCircle.m; sourceTree = "<group>"; };
+		728D0A151E467C1F006D879C /* BEMLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMLine.h; sourceTree = "<group>"; };
+		728D0A161E467C1F006D879C /* BEMLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMLine.m; sourceTree = "<group>"; };
+		728D0A171E467C1F006D879C /* BEMAverageLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMAverageLine.h; sourceTree = "<group>"; };
+		728D0A181E467C1F006D879C /* BEMAverageLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMAverageLine.m; sourceTree = "<group>"; };
+		728D0A191E467C1F006D879C /* BEMPermanentPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPermanentPopupView.h; sourceTree = "<group>"; };
+		728D0A1A1E467C1F006D879C /* BEMPermanentPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPermanentPopupView.m; sourceTree = "<group>"; };
 		72C1B8A31E3BAFF1006F67DB /* LinkBluCon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LinkBluCon-Bridging-Header.h"; sourceTree = "<group>"; };
 		72C1B8A41E3BAFF1006F67DB /* KVNProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgress.h; sourceTree = "<group>"; };
 		72C1B8A51E3BAFF1006F67DB /* KVNProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgress.m; sourceTree = "<group>"; };
@@ -56,14 +71,12 @@
 		72C788161E3AEFAE00948B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72C788191E3AEFAE00948B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72C7881B1E3AEFAE00948B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72C788271E3AF2CD00948B43 /* bg0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg0.png; sourceTree = "<group>"; };
 		72DF9D771E3C622F0047CDCB /* KCFABManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABManager.swift; sourceTree = "<group>"; };
 		72DF9D781E3C622F0047CDCB /* KCFABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABViewController.swift; sourceTree = "<group>"; };
 		72DF9D791E3C622F0047CDCB /* KCFABWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFABWindow.swift; sourceTree = "<group>"; };
 		72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButton.swift; sourceTree = "<group>"; };
 		72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonDelegate.swift; sourceTree = "<group>"; };
 		72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonItem.swift; sourceTree = "<group>"; };
-		72DF9D841E3C6F5D0047CDCB /* bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg1.png; sourceTree = "<group>"; };
 		91CB47FBA5752E8CB999F07F /* Pods-LinkBluCon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkBluCon.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,9 +101,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		728D0A201E467C24006D879C /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				728D0A111E467C1F006D879C /* BEMSimpleLineGraphView.h */,
+				728D0A121E467C1F006D879C /* BEMSimpleLineGraphView.m */,
+				728D0A131E467C1F006D879C /* BEMCircle.h */,
+				728D0A141E467C1F006D879C /* BEMCircle.m */,
+				728D0A151E467C1F006D879C /* BEMLine.h */,
+				728D0A161E467C1F006D879C /* BEMLine.m */,
+				728D0A171E467C1F006D879C /* BEMAverageLine.h */,
+				728D0A181E467C1F006D879C /* BEMAverageLine.m */,
+				728D0A191E467C1F006D879C /* BEMPermanentPopupView.h */,
+				728D0A1A1E467C1F006D879C /* BEMPermanentPopupView.m */,
+			);
+			name = Charts;
+			sourceTree = "<group>";
+		};
 		72C1B8A01E3BAFB4006F67DB /* ExternalLibs */ = {
 			isa = PBXGroup;
 			children = (
+				728D0A201E467C24006D879C /* Charts */,
 				72DF9D831E3C62350047CDCB /* FloatingButton */,
 				72C1B8A11E3BAFCD006F67DB /* KVNProgress */,
 			);
@@ -172,6 +203,7 @@
 				72C788181E3AEFAE00948B43 /* LaunchScreen.storyboard */,
 				72C7881B1E3AEFAE00948B43 /* Info.plist */,
 				72C1B8BA1E3BBE43006F67DB /* BluConDeviceManager.swift */,
+				728D0A0F1E4673E5006D879C /* DemoViewController.swift */,
 			);
 			path = LinkBluCon;
 			sourceTree = "<group>";
@@ -179,19 +211,9 @@
 		72C788211E3AF14500948B43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				72C788221E3AF14D00948B43 /* Images */,
 			);
 			name = Resources;
 			path = LinkBluCon;
-			sourceTree = "<group>";
-		};
-		72C788221E3AF14D00948B43 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				72DF9D841E3C6F5D0047CDCB /* bg1.png */,
-				72C788271E3AF2CD00948B43 /* bg0.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		72DF9D831E3C62350047CDCB /* FloatingButton */ = {
@@ -279,12 +301,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72DF9D851E3C6F5D0047CDCB /* bg1.png in Resources */,
 				72C7881A1E3AEFAE00948B43 /* LaunchScreen.storyboard in Resources */,
 				72C1B8B91E3BB04D006F67DB /* KVNProgressView.xib in Resources */,
 				72C788171E3AEFAE00948B43 /* Assets.xcassets in Resources */,
 				72C788151E3AEFAE00948B43 /* Main.storyboard in Resources */,
-				72C788281E3AF2CD00948B43 /* bg0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				728D0A1F1E467C1F006D879C /* BEMPermanentPopupView.m in Sources */,
 				72C788121E3AEFAE00948B43 /* ViewController.swift in Sources */,
 				72DF9D821E3C622F0047CDCB /* KCFloatingActionButtonItem.swift in Sources */,
 				72DF9D7D1E3C622F0047CDCB /* KCFABManager.swift in Sources */,
@@ -350,6 +371,10 @@
 				72DF9D801E3C622F0047CDCB /* KCFloatingActionButton.swift in Sources */,
 				72DF9D7F1E3C622F0047CDCB /* KCFABWindow.swift in Sources */,
 				72C1B8B61E3BB00F006F67DB /* UIImage+KVNImageEffects.m in Sources */,
+				728D0A101E4673E5006D879C /* DemoViewController.swift in Sources */,
+				728D0A1C1E467C1F006D879C /* BEMCircle.m in Sources */,
+				728D0A1B1E467C1F006D879C /* BEMSimpleLineGraphView.m in Sources */,
+				728D0A1E1E467C1F006D879C /* BEMAverageLine.m in Sources */,
 				72C1B8AB1E3BAFF1006F67DB /* KVNProgressConfiguration.m in Sources */,
 				72DF9D7E1E3C622F0047CDCB /* KCFABViewController.swift in Sources */,
 				72C788101E3AEFAE00948B43 /* AppDelegate.swift in Sources */,
@@ -357,6 +382,7 @@
 				72C1B8AC1E3BAFF1006F67DB /* KVNRotationViewController.m in Sources */,
 				72C1B8BB1E3BBE43006F67DB /* BluConDeviceManager.swift in Sources */,
 				72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */,
+				728D0A1D1E467C1F006D879C /* BEMLine.m in Sources */,
 				72C1B8AA1E3BAFF1006F67DB /* KVNProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
