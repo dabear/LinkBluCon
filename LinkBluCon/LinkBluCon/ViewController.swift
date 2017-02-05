@@ -39,6 +39,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var mode: DeviceMode = .deviceScanning
     var fab = KCFloatingActionButton()
     let tapRecognizer = UITapGestureRecognizer()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 
     
     enum DeviceMode {
@@ -64,10 +67,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         devicesDiscovered.removeAll()
         dataFromBluConDevice.removeAll()
         mode = .deviceScanning
-        tapRecognizer.numberOfTapsRequired = 4
-        tapRecognizer.addTarget(self, action: #selector(invokeDebugMode))
-        titleLabel.addGestureRecognizer(tapRecognizer)
-        titleLabel.isUserInteractionEnabled = true
     }
     
     func invokeDebugMode() {
@@ -80,6 +79,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .default
         initialSetup()
     }
     
@@ -99,7 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         bluConManager.start()
         KVNProgress.show(withStatus: "Loading, Please wait...")
         scanButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17.0)
-        
+        addDemoFabButton()
     }
     
     override func didReceiveMemoryWarning() {
@@ -285,6 +285,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return "Device is diconnected (by force)."
         }
     }
+    
+    private func addDemoFabButton() {
+        fab.buttonImage = UIImage(named: "custom-add")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: "bluetooth")?.withRenderingMode(.alwaysTemplate)
+        fab.addItem("Demo Mode", icon: image) { item in
+            KVNProgress.dismiss()
+            self.removeFabButton()
+            self.invokeDebugMode()
+        }
+        fab.sticky = true
+        self.view.addSubview(fab)
+    }
+
     
     private func addFabButton() {
         fab.buttonImage = UIImage(named: "custom-add")?.withRenderingMode(.alwaysOriginal)

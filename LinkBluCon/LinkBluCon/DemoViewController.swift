@@ -16,37 +16,37 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
     
     @IBOutlet weak var graph: BEMSimpleLineGraphView!
     
-    @IBOutlet weak var graphValueLabel: UILabel!
-    
-    @IBOutlet weak var graphTimeLabel: UILabel!
-    
     @IBOutlet weak var todayLabel: UILabel!
     
-    var dataValues: NSMutableArray = NSMutableArray()
-    var dateValues: NSMutableArray = NSMutableArray()
+    var dataValues: [String] = [String]()
+    var dateValues: [String] = [String]()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
+        }
+
         
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action:#selector(dismissVC))
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         initialSetup()
         // Do any additional setup after loading the view.
     }
     
     func initialSetup(){
-        todayLabel.text = "Today - \(DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none))"
-        dateValues.add(getTime())
-        dataValues.add("70")
-        currentValue.text = dataValues.firstObject as? String
-        timeLabel.text = dateValues.firstObject as? String
+        dateValues.append(contentsOf: ["9:00","10:00","11:00", "12:00","13:00","14:00", "15:00","16:00","17:00", "18:00","19:00","20:00", "21:00"])
+        dataValues.append(contentsOf: ["210", "230", "200", "180", "190","200", "230", "215", "250","215", "250", "265", "260"])
+        currentValue.text = dataValues.last
+        timeLabel.text = getTime()
         setupGraph()
-        fireTimer()
     }
     
     func fireTimer() {
         if #available(iOS 10.0, *) {
-            let timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) {
+            let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) {
                 (_) in
                 self.timerFired()
             }
@@ -54,7 +54,7 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
 
         } else {
             // Fallback on earlier versions
-            let timer = Timer(fireAt: Date(timeIntervalSinceNow: 0), interval: 60, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+            let timer = Timer(fireAt: Date(timeIntervalSinceNow: 0), interval: 5, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
             timer.fire()
         }
         
@@ -62,11 +62,11 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
     }
     
     func timerFired() {
-        let i: Int = Int(arc4random() % 10) + 1
-        dataValues.add("\(100+i)")
-        dateValues.add(getTime())
-        currentValue.text = dataValues.lastObject as? String
-        timeLabel.text = dateValues.lastObject as? String
+        let i: Int = Int(arc4random_uniform(201) % 10) + 100
+//        dataValues.add("\(200+i)")
+//        dateValues.add(getTime())
+//        currentValue.text = dataValues.lastObject as? String
+//        timeLabel.text = dateValues.lastObject as? String
         graph.reloadGraph()
     }
     
@@ -87,7 +87,8 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
         graph.averageLine.alpha = 0.6
         graph.averageLine.color = UIColor.black
         graph.averageLine.width = 2.5
-        graph.averageLine.dashPattern = [5, 5]
+        graph.averageLine.yValue = 200
+        
         
         // Set the graph's animation style to draw, fade, or none
         graph.animationGraphStyle = .draw
@@ -97,12 +98,14 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
         graph.lineDashPatternForReferenceYAxisLines = [2,2]
         
         // Show the y axis values with this format string
-        graph.formatStringForValues = "%0.1f"
+//        graph.formatStringForValues = "%0.1f"
         
         // Setup initial curve selection segment
         graph.enableBezierCurve = true
         graph.dataSource = self
         graph.delegate = self
+        graph.reloadGraph()
+
     }
     
     func getTime() -> String {
@@ -136,52 +139,16 @@ class DemoViewController: UIViewController, BEMSimpleLineGraphDataSource, BEMSim
     // MARK: - SimpleLineGraph Delegate
 
      func numberOfGapsBetweenLabels(onLineGraph graph: BEMSimpleLineGraphView) -> Int {
-        return 4
+        return 0
     }
     
      func lineGraph(_ graph: BEMSimpleLineGraphView, labelOnXAxisFor index: Int) -> String {
-        return (dateValues[index] as? String)!
+        let str = dateValues[index]
+        return str
     }
     
     func yAxisSuffix(onLineGraph graph: BEMSimpleLineGraphView) -> String {
         return " mg/dl"
     }
-    
-    func lineGraph(_ graph: BEMSimpleLineGraphView, didTouchGraphWithClosestIndex index: Int) {
-        graphValueLabel.text = dataValues[index] as? String
-        graphTimeLabel.text = "@ \(dateValues[index] as! String)"
-    }
-    
-    func setValues() {
-        let avgValue = "Avg : \(self.graph.calculatePointValueSum().intValue / self.dataValues.count) mg/dl"
-        let timeValue = (self.dateValues.count == 1) ? "at \(self.dateValues.firstObject!)" : "between \(self.dateValues.firstObject!) and \(self.dateValues.lastObject!)"
-        self.graphValueLabel.text = avgValue
-        self.graphTimeLabel.text = timeValue
-    }
-    
-    func lineGraph(_ graph: BEMSimpleLineGraphView, didReleaseTouchFromGraphWithClosestIndex index: CGFloat) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-            self.graphValueLabel.alpha = 0.0
-            self.graphTimeLabel.alpha = 0.0
-        }) { (state) in
-            self.setValues()
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.graphValueLabel.alpha = 1.0
-                self.graphTimeLabel.alpha = 1.0
-
-            }, completion: nil)
-
-        }
-    }
-    
-    
-     func lineGraphDidFinishLoading(_ graph: BEMSimpleLineGraphView) {
-        setValues()
-    }
-    
-    func lineGraphDidBeginLoading(_ graph: BEMSimpleLineGraphView) {
-        
-    }
-
     
 }
