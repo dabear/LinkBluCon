@@ -32,6 +32,7 @@
 		72DF9D801E3C622F0047CDCB /* KCFloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */; };
 		72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */; };
 		72DF9D821E3C622F0047CDCB /* KCFloatingActionButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */; };
+		72E9A6A41E52AD0C001C9D4A /* BluConGlucoseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E9A6A31E52AD0C001C9D4A /* BluConGlucoseDecoder.swift */; };
 		80DC7100772F281F80F8720C /* Pods_LinkBluCon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D79C05C4193A069C93FA8E /* Pods_LinkBluCon.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		72DF9D7A1E3C622F0047CDCB /* KCFloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButton.swift; sourceTree = "<group>"; };
 		72DF9D7B1E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonDelegate.swift; sourceTree = "<group>"; };
 		72DF9D7C1E3C622F0047CDCB /* KCFloatingActionButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCFloatingActionButtonItem.swift; sourceTree = "<group>"; };
+		72E9A6A31E52AD0C001C9D4A /* BluConGlucoseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluConGlucoseDecoder.swift; sourceTree = "<group>"; };
 		91CB47FBA5752E8CB999F07F /* Pods-LinkBluCon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkBluCon.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkBluCon/Pods-LinkBluCon.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,6 +206,7 @@
 				72C7881B1E3AEFAE00948B43 /* Info.plist */,
 				72C1B8BA1E3BBE43006F67DB /* BluConDeviceManager.swift */,
 				728D0A0F1E4673E5006D879C /* DemoViewController.swift */,
+				72E9A6A31E52AD0C001C9D4A /* BluConGlucoseDecoder.swift */,
 			);
 			path = LinkBluCon;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				72DF9D7E1E3C622F0047CDCB /* KCFABViewController.swift in Sources */,
 				72C788101E3AEFAE00948B43 /* AppDelegate.swift in Sources */,
 				72C1B8B41E3BB00F006F67DB /* UIColor+KVNContrast.m in Sources */,
+				72E9A6A41E52AD0C001C9D4A /* BluConGlucoseDecoder.swift in Sources */,
 				72C1B8AC1E3BAFF1006F67DB /* KVNRotationViewController.m in Sources */,
 				72C1B8BB1E3BBE43006F67DB /* BluConDeviceManager.swift in Sources */,
 				72DF9D811E3C622F0047CDCB /* KCFloatingActionButtonDelegate.swift in Sources */,

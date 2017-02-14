@@ -21,7 +21,7 @@ class NonRotatingNavigationController : UINavigationController {
 }
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate, BluConGlucoseDecoderDelegate {
     
     @IBOutlet weak var peripheralsTableView: UITableView!
     
@@ -39,13 +39,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var mode: DeviceMode = .deviceScanning
     var fab = KCFloatingActionButton()
     let tapRecognizer = UITapGestureRecognizer()
+    var finalvalue = NSMutableString()
+    let decoder = BluConGlucoseDecoder.sharedInstance
+    var trendValues = [[String: String]]()
+    var historicValues = [[String: String]]()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
 
     
     enum DeviceMode {
-        case deviceScanning, readingData
+        case deviceScanning, readingData, dataDecoded
     }
     
     @IBAction func addBluetoothDevice(_ sender: Any) {
@@ -57,6 +62,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func initialSetup() {
         peripheralsTableView.delegate = self
         peripheralsTableView.dataSource = self
+        decoder.delegate = self
         peripheralsTableView.layer.borderColor = self.view.tintColor.cgColor
         peripheralsTableView.layer.borderWidth = 2.0
         let config = KVNProgressConfiguration.default()
@@ -107,13 +113,77 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // MARK: TableViewDelegate
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if mode == .dataDecoded {
+            return 2
+        }
+        else {
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if mode == .dataDecoded {
+            if section == 0 {
+                return "Trend Values"
+            }
+            else {
+                return "Historic Values"
+            }
+        }
+        else {
+            return ""
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (mode == .deviceScanning) ? devicesDiscovered.count : dataFromBluConDevice.count
+        if mode == .dataDecoded {
+            if section == 0 {
+                return trendValues.count
+            }
+            else {
+                return historicValues.count
+            }
+        }
+        else {
+            return (mode == .deviceScanning) ? devicesDiscovered.count : dataFromBluConDevice.count
+        }
+    }
+    
+    func getglucoseReading(data: [String:String]) -> String {
+        if let key = data.keys.first {
+            return data[key]! as String
+        }
+        else {
+            return "invalid reading"
+        }
+    }
+    
+    func getMinutesData(data: [String:String]) -> String {
+        if let key = data.keys.first {
+            
+            return key as String
+        }
+        else {
+            return "invalid time"
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style:.default, reuseIdentifier: "blucon")
-        let value = (mode == .deviceScanning) ? devicesDiscovered[indexPath.row].name : dataFromBluConDevice[indexPath.row]
+        var value = ""
+        if mode == .dataDecoded {
+            if indexPath.section == 0 {
+                value = "Time: \(getMinutesData(data: trendValues[indexPath.row]))     |     Glucose: \(getglucoseReading(data: trendValues[indexPath.row]))"
+            }
+            else {
+                value = "Time: \(getMinutesData(data: historicValues[indexPath.row]))     |     Glucose: \(getglucoseReading(data: historicValues[indexPath.row]))"
+            }
+        }
+        else {
+            value = (mode == .deviceScanning) ? devicesDiscovered[indexPath.row].name : dataFromBluConDevice[indexPath.row]
+        }
         cell.textLabel?.text = value
         cell.textLabel?.numberOfLines = 0
         if let text = cell.textLabel?.text?.lowercased(), text.contains("reading data from device") {
@@ -127,7 +197,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell: UITableViewCell = tableView.cellForRow(at: indexPath)!
         cell.setSelected(false, animated: true)
         
-        if mode == .readingData {
+        if mode == .readingData || mode == .dataDecoded{
             return
         }
         
@@ -213,6 +283,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.peripheralsTableView.reloadData()
             KVNProgress.dismiss()
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                KVNProgress.show(withStatus: "ready and waiting to read data...")
+            }
         }
         
         print("started listening to characteristics")
@@ -232,10 +305,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func didReceiveUpdateValueFromPeripheral(hexString: String) {
         print("value received - \(hexString)")
+        finalvalue.append(hexString)
+        print("totalString: \(finalvalue)")
         let timeStamp = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
         dataFromBluConDevice.append("\(timeStamp)" + "  :  " + hexString)
         peripheralsTableView.reloadData()
     }
+    
+    func didReceiveCompleteDataFromPeripheral(hexString: String) {
+        // run the algo here
+        finalvalue.setString("")
+        finalvalue.append(hexString)
+        trendValues.removeAll()
+        historicValues.removeAll()
+        peripheralsTableView.reloadData()
+        decoder.decodeValuesForData(hexData: finalvalue as String)
+    }
+    
+    func updateUIForDataSizeReceived(size: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            KVNProgress.show(withStatus: size, on: self.view)
+        }
+    }
+    
+    // MARK: Decoder Delegate 
+    
+    
+    func didStartDecoding() {
+        print("decoding started")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            KVNProgress.show(withStatus: "Data conversion in progress...", on: self.view)
+        }
+    }
+    func didFinishDecoding() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            KVNProgress.dismiss(completion: { 
+                if self.trendValues.count > 0 && self.historicValues.count > 0 {
+                    self.peripheralsTableView.reloadData()
+                }
+                self.peripheralsTableView.scrollsToTop = true
+            })
+        }
+    }
+    
+    func updateTotalSensorActiveTime(status: String) {
+        print(status)
+    }
+    
+    func glucoseTrendValuesUpdated(data: [[String: String]]) {
+        mode = .dataDecoded
+        trendValues.removeAll()
+        trendValues.append(contentsOf: data)
+    }
+    
+    func glucoseHistoryValuesUpdated(data: [[String: String]]) {
+        mode = .dataDecoded
+        historicValues.removeAll()
+        historicValues.append(contentsOf: data)
+    }
+    
+    func currentGlucoseValueUpdated(data: String) {
+        print(data)
+    }
+
     
     // MARK: Helper Fns
     private func deviceIsReadyFn() {

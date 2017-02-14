@@ -18,6 +18,8 @@ protocol BluConDeviceManagerDelegate: class {
     func peripheralDisconnected(status: PeripheralError)
     func didStartListeningToCharacteristicNotifications(status: Bool)
     func didReceiveUpdateValueFromPeripheral(hexString: String)
+    func updateUIForDataSizeReceived(size: String)
+    func didReceiveCompleteDataFromPeripheral(hexString: String)
     func reconnectingBluConDevice()
 }
 
@@ -46,15 +48,22 @@ public enum DeviceStatus {
 
 class BluConDeviceManager {
     
+    // constants
+    private static let connectionRetryInterval: TimeInterval = 30.0
+    private static let connectionMaxRetries: UInt = 10
+    private static let requiredDataSize = 3904 // 1952 bytes
+    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let bluconBluetoothDeviceName: String = "blu"
+    
+    
+    // vars
     weak var delegate: BluConDeviceManagerDelegate? = nil
     static let sharedInstance: BluConDeviceManager = BluConDeviceManager()
     private let connectionManager: CentralManager = CentralManager(options: [CBCentralManagerOptionRestoreIdentifierKey : "com.ambrosia.linkblucon.central-manager" as NSString])
     private var discoveredPeripherals = [Peripheral]()
     private var peripheralConnected: Peripheral? = nil
-    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let bluconBluetoothDeviceName: String = "b"
-    
+    private var hexString = NSMutableString()
     
     func start() {
         
@@ -122,9 +131,11 @@ class BluConDeviceManager {
             self.peripheralConnected = Peripheral
             self.discoverServices()
             self.delegate?.peripheralConnected(peripheral: Peripheral)
+            self.hexString = NSMutableString()
         }
         
         connectionFuture.onFailure { [weak self] error in
+            self?.hexString = NSMutableString()
             self.forEach { strongSelf in
                 
                 print("Connection failed: '\(peripheral.name)', \(peripheral.identifier.uuidString), timeout count=\(peripheral.timeoutCount), max timeouts=\(10), disconnect count=\(peripheral.disconnectionCount), max disconnections=\(10)")
@@ -141,10 +152,10 @@ class BluConDeviceManager {
                     if let err = error as? PeripheralError {
                         self?.delegate?.peripheralDisconnected(status: err)
                     }
-                    if peripheral.disconnectionCount < 10 {
+                    if peripheral.disconnectionCount < BluConDeviceManager.connectionMaxRetries {
                         self?.delegate?.reconnectingBluConDevice()
-                        peripheral.reconnect(withDelay: 1.0)
-                        print("Disconnected retrying '\(peripheral.name)', \(peripheral.identifier.uuidString), disconnect count=\(peripheral.disconnectionCount), max disconnections=\(10)")
+                        peripheral.reconnect(withDelay: BluConDeviceManager.connectionRetryInterval) // retry interval 30 sec
+                        print("Disconnected retrying '\(peripheral.name)', \(peripheral.identifier.uuidString), disconnect count=\(peripheral.disconnectionCount), max disconnections=\(BluConDeviceManager.connectionMaxRetries)")
                         return
                     }
                 }
@@ -213,12 +224,25 @@ class BluConDeviceManager {
             var values = [UInt8](repeating:0, count:data!.count)
             data?.copyBytes(to: &values, count: data!.count)
             print(values)
-            let hexString = NSMutableString()
-            for byte in values {
-                hexString.appendFormat("%02x", UInt(byte))
+            if (self.hexString as String).characters.count == BluConDeviceManager.requiredDataSize {
+                // we already have some old info... so lets reset it...
+                self.hexString = NSMutableString()
             }
-            print(NSString(string: hexString))
-            self.delegate?.didReceiveUpdateValueFromPeripheral(hexString: hexString as String)
+            
+            
+            for byte in values {
+                self.hexString.appendFormat("%02x", UInt(byte))
+            }
+            
+            print(NSString(string: self.hexString))
+            
+            if (self.hexString as String).characters.count == BluConDeviceManager.requiredDataSize {
+                // we got the data we are expecting
+                self.delegate?.didReceiveCompleteDataFromPeripheral(hexString: self.hexString as String)
+            }
+            else {
+                self.delegate?.updateUIForDataSizeReceived(size: "Reading Data...\n\(((self.hexString as String).characters.count)/2) bytes of \(BluConDeviceManager.requiredDataSize/2) bytes")
+            }            
         }
         
         receiveNotificationUpdatesFuture.onFailure { (Error) in
