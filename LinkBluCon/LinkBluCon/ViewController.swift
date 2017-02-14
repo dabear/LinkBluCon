@@ -161,13 +161,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getMinutesData(data: [String:String]) -> String {
+        var str = "invalid time"
         if let key = data.keys.first {
+            if key.isNumeric {
+                str = "\(key) min"
+            } else {
+                str = key as String
+            }
             
-            return key as String
         }
-        else {
-            return "invalid time"
-        }
+        return str
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
