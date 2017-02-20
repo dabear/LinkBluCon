@@ -188,8 +188,8 @@ class BluConGlucoseDecoder: NSObject {
     
     private func getGlucose(data: String) -> String {
         let glucose = Int(UInt64(data, radix:16)!) & Int(0x0FFF) // bit mask
-        let result = (glucose/6)-37
-        return "\((result > 0) ? result : 0)"
+        let result = (glucose/10) //(glucose/6)-37
+        return "\((result >= 0) ? result : 0)"
     }
     
 }
