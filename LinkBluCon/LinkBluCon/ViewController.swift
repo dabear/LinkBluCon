@@ -20,8 +20,14 @@ class NonRotatingNavigationController : UINavigationController {
     }
 }
 
+extension UITableView {
+    func reloadData(with animation: UITableViewRowAnimation) {
+        reloadSections(IndexSet(integersIn: 0..<numberOfSections), with: animation)
+    }
+}
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate, BluConGlucoseDecoderDelegate {
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluConDeviceManagerDelegate {
     
     @IBOutlet weak var peripheralsTableView: UITableView!
     
@@ -44,6 +50,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var trendValues = [[String: String]]()
     var historicValues = [[String: String]]()
     
+    var sensorActiveTime = ""
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
@@ -62,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func initialSetup() {
         peripheralsTableView.delegate = self
         peripheralsTableView.dataSource = self
-        decoder.delegate = self
+//        decoder.delegate = self
         peripheralsTableView.layer.borderColor = self.view.tintColor.cgColor
         peripheralsTableView.layer.borderWidth = 2.0
         let config = KVNProgressConfiguration.default()
@@ -89,9 +97,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         initialSetup()
     }
     
-    func timerComplete() {
-        let timeStamp = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
-        print("Hello world - \(timeStamp)")
+    func timeStamp() -> String {
+        return DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,7 +140,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         else {
-            return ""
+            return sensorActiveTime
         }
     }
     
@@ -205,7 +212,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         bluConManager.stopScanForPeripherals()
-        KVNProgress.show(withStatus: "Connecting to \(devicesDiscovered[indexPath.row].name)...")
+        KVNProgress.show(withStatus: "Connecting to \(devicesDiscovered[indexPath.row].name)")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             print("device selected" + self.devicesDiscovered[indexPath.row].name)
             self.bluConManager.connectToPeripheral(peripheral: self.devicesDiscovered[indexPath.row])
@@ -240,11 +247,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         deviceReadyForScanning = false
     }
     func didDiscoverBluConPeripherals(peripherals: [Peripheral]) {
-        let orderedSet = NSOrderedSet.init(array:peripherals)
-        if let array = orderedSet.array as? [Peripheral] {
-            self.devicesDiscovered = array
-        }
-        peripheralsTableView.reloadData()
+        self.devicesDiscovered = Array<Peripheral>(Set<Peripheral>(peripherals))
+        peripheralsTableView.reloadData(with: .right)
     }
     
     func peripheralConnected(peripheral: Peripheral) {
@@ -271,7 +275,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let peripheralName = self.connectedPeripheral?.name
         dataFromBluConDevice.append("Reading data from device - \(peripheralName!)")
         
-        KVNProgress.showSuccess(withStatus: (deviceRecentlyDisconnected) ? "BLUCON device re-connected." : "BLUCON device connected.")
+        KVNProgress.showSuccess(withStatus: (deviceRecentlyDisconnected) ? "BLUCON device re-connected." : "\(peripheralName!) connected.")
         deviceRecentlyDisconnected = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -283,15 +287,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             self.toggleMode()
             self.addFabButton()
-            self.peripheralsTableView.reloadData()
+            self.peripheralsTableView.reloadData(with: .right)
             KVNProgress.dismiss()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                KVNProgress.show(withStatus: "ready and waiting to read data...")
+                KVNProgress.show(withStatus: "waiting for \(peripheralName!) to send data...")
             }
         }
         
-        print("started listening to characteristics")
+        print(" \(self.timeStamp()) started listening to characteristics")
     }
     
     func toggleMode() {
@@ -301,11 +305,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func reconnectingBluConDevice() {
-        KVNProgress.show(withStatus: "Reconnecting to the  device...")
+        KVNProgress.show(withStatus: "Reconnecting to the  \((connectedPeripheral?.name) ?? "BluCon")")
         self.postConnectionDeviceStatusLabel.text = "Status : Disconnected"
         deviceRecentlyDisconnected = true
     }
     
+    func didUpdateSensorActiveTime(status: String) {
+        KVNProgress.dismiss()
+        sensorActiveTime = status
+        let peripheralName = self.connectedPeripheral?.name
+        if self.dataFromBluConDevice.count > 0 && self.dataFromBluConDevice[0] == "Reading data from device - \(peripheralName!)" {
+            self.dataFromBluConDevice.remove(at: 0)
+        }
+        
+//        if self.dataFromBluConDevice.count > 0 {
+//                self.dataFromBluConDevice[0] = status
+//            }
+//            else {
+//                self.dataFromBluConDevice.append(status)
+//            }
+    }
+    
+    func didReceiveUpdatedGlucoseValue(dateAndTime: String, value: String) {
+        dataFromBluConDevice.append("\(dateAndTime)" + "  :  " + value + " mg/dl")
+        peripheralsTableView.reloadData(with: .right)
+
+    }
+    
+    func glucosePatchReadError() {
+        print("patch read error.. please check the connectivity and re-initiate...")
+            KVNProgress.showError(withStatus: "unable to read the patch... \nplease check & try again.", completion: {
+                self.dataFromBluConDevice.removeAll()
+                self.dataFromBluConDevice.append("unable to read the patch. please check & try again.")
+                self.peripheralsTableView.reloadData(with: .right)
+            })
+    }
+    
+    /*
     func didReceiveUpdateValueFromPeripheral(hexString: String) {
         print("value received - \(hexString)")
         finalvalue.append(hexString)
@@ -370,6 +406,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func currentGlucoseValueUpdated(data: String) {
         print(data)
     }
+  */
 
     
     // MARK: Helper Fns
@@ -445,7 +482,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.dataFromBluConDevice.removeAll()
                 self.devicesDiscovered.removeAll()
                 self.toggleMode()
-                self.peripheralsTableView.reloadData()
+                self.peripheralsTableView.reloadData(with: .right)
                 self.removeFabButton()
                 KVNProgress.dismiss()
             }

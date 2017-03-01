@@ -175,18 +175,18 @@ class BluConGlucoseDecoder: NSObject {
         return getTotalSensorActiveTime(timeInMinutes: (allData[startByte1...endByte1])+(allData[startByte0...endByte0]) )
     }
     
-    private func getTotalSensorActiveTime(timeInMinutes: String) -> String? {
+    func getTotalSensorActiveTime(timeInMinutes: String) -> String? {
         if !timeInMinutes.isEmpty {
             let time: Int = Int(UInt64(timeInMinutes, radix:16)!)
             let days = time/1440
             let hours = ((time - (days * 1440))/60)
             let minutes = (time - (days * 1440)) - (hours * 60)
-            return "Sensor active for \(days) days, \(hours) hours and \(minutes) minutes"
+            return "Sensor active for \(days) days, \(hours) hrs and \(minutes) min"
         }
         return nil
     }
     
-    private func getGlucose(data: String) -> String {
+    func getGlucose(data: String) -> String {
         let glucose = Int(UInt64(data, radix:16)!) & Int(0x0FFF) // bit mask
         let result = (glucose/10) //(glucose/6)-37
         return "\((result >= 0) ? result : 0)"
