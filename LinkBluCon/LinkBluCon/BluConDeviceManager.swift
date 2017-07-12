@@ -194,7 +194,13 @@ class BluConDeviceManager {
         let blockPairs = parseSingleBlockResponseIntoByteArray(response: responseString.copy() as! String)
         return decoder.getGlucose(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
     }
-    
+
+    private var nowGlucoseValue8p5: String {
+        let blockPairs = parseSingleBlockResponseIntoByteArray(response: responseString.copy() as! String)
+        return decoder.getGlucoseDividedBy8p5(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
+    }
+    //getGlucoseDividedBy8p5
+
     private var blockNumberForNowGlucoseData: String {
         let getNowDataIndexResponse = parseSingleBlockResponseIntoByteArray(response: responseString.copy() as! String)
         // get the 3rd block 5th byte hex to decimal conversion
@@ -412,6 +418,12 @@ class BluConDeviceManager {
                 if self.isBluconACKResponse {
                     self.currentCommand = .initalState
                     print("\(self.timeStamp()) ACK received from BluCon - \(self.responseString)\n----------------------------------------------------------------------------------")
+                    //!!!!!!!!!!!!!!
+                    //we receive an ackresponse after both ackwakeup and after we ask the sensor to sleep
+                    // TODO::: only send getNowGlucoseDataIndexCommand if last command was not sleep
+                    //!!!!
+                    print("now getting getNowGlucoseDataIndexCommand")
+                    self.getNowGlucoseDataIndexCommand()
                 }
                 
                 if self.isBluconNACKResponse {
@@ -442,8 +454,12 @@ class BluConDeviceManager {
 
                 }
                 else if self.currentCommand == .getNowGlucoseData && self.isSingleBlockResponse {
+                    print("dabear:: reached block getNowGlucoseData")
+
                     print("\(self.timeStamp()) getNowGlucoseData -> single block response \(self.responseString)")
-                    print("\(self.timeStamp()) now glucose value -> \(self.nowGlucoseValue)")
+                    print("\(self.timeStamp()) now glucose value Original Limitter algo (divided by 10)-> \(self.nowGlucoseValue)")
+                    print("\(self.timeStamp()) now glucose value Updated Limitter algo (divided by 8.5)-> \(self.nowGlucoseValue8p5)")
+
                     self.delegate?.didReceiveUpdatedGlucoseValue(dateAndTime: self.timeStamp(), value: self.nowGlucoseValue)
                     self.sleepCommand()
                 }
@@ -492,8 +508,8 @@ class BluConDeviceManager {
         self.sendCommand(completion: { (status, error) in
             if status == true {
                 print("\(self.timeStamp()) ack command sent successfully...")
-                print("\(self.timeStamp()) getNowGlucoseDataIndexCommand...")
-                self.getNowGlucoseDataIndexCommand()
+                //print("\(self.timeStamp()) getNowGlucoseDataIndexCommand...")
+                //self.getNowGlucoseDataIndexCommand()
             }
             
         })

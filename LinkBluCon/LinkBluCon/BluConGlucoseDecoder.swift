@@ -185,6 +185,12 @@ class BluConGlucoseDecoder: NSObject {
         }
         return nil
     }
+
+    func getGlucoseDividedBy8p5(data: String) -> String {
+        let glucose = Int(UInt64(data, radix:16)!) & Int(0x0FFF) // bit mask
+        let result = (Double(glucose)/8.5) //(glucose/6)-37
+        return "\((result >= 0) ? result : 0)"
+    }
     
     func getGlucose(data: String) -> String {
         let glucose = Int(UInt64(data, radix:16)!) & Int(0x0FFF) // bit mask
