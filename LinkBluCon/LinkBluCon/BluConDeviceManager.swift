@@ -93,7 +93,10 @@ private enum BluConCommands: String {
     case getNowGlucoseData = "9999999999"
     case getTrendData = "010d0f02030c"
     case getHistoricData = "010d0f020f18"
-    
+
+    //dabear:: unknown commands added
+    case unknowncommand010d0a00 = "010d0a00"
+    case unknowncommand010d0b00 = "010d0b00"
     
     
 }
@@ -121,9 +124,11 @@ class BluConDeviceManager {
     private static let connectionRetryInterval: TimeInterval = 10.0 // try after every 10 sec and not anytime soon...
     private static let connectionMaxRetries: UInt = 10 // max connection retries limit...
     private static let requiredDataSize = 3904 // 1952 bytes
-    private let desiredTransmitCharacteristicUUID: CBUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let desiredServiceUUID: CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+
+    private let desiredTransmitCharacteristicUUID: CBUUID = CBUUID(string: "436AA6E9-082E-4CE8-A08B-01D81F195B24")
+    private let desiredReceiveCharacteristicUUID: CBUUID = CBUUID(string: "436A0C82-082E-4CE8-A08B-01D81F195B24")
+    private let desiredServiceUUID: CBUUID = CBUUID(string:"436A62C0-082E-4CE8-A08B-01D81F195B24")
+
     private let bluconBluetoothDeviceName: String = "blu"
     private var currentCommand: BluConCommands = .initalState
     private var writeCharacteristic: Characteristic?
@@ -168,7 +173,9 @@ class BluConDeviceManager {
     private var isBluconNACKResponse: Bool {
         return (responseString.lowercased.hasPrefix(BluConCommandResponse.bluconNACKResponsePrefix.rawValue))
     }
-    
+
+
+
     private var patchInfo: String {
         let response = responseString.copy() as! String
         let startIndex = response.index(response.startIndex, offsetBy: 4)
@@ -393,8 +400,10 @@ class BluConDeviceManager {
         
         receiveNotificationUpdatesFuture.onSuccess { (characteristic: Characteristic, data: Data?) in
             if let responseData = data {
-                
+                //self.sensorTime =  "Sensor active for (x) days, (y) hrs and (z) min"
                 self.responseString = NSMutableString.init(string: responseData.hexStringValue())
+                print("----------------------------------------------------------------------------------\n\(self.timeStamp()) dabear:: got response - \(self.responseString)")
+
                 if self.isWakeupSignal {
                     self.currentCommand = .initalState
                     print("----------------------------------------------------------------------------------\n\(self.timeStamp()) wakeup received - \(self.responseString)")
@@ -416,20 +425,21 @@ class BluConDeviceManager {
                 if self.currentCommand == .initalState && self.isWakeupSignal {
                     // Get Patch Info
                     self.getPatchInfoCommand()
+                    print("dabear:: reached block initialstate")
                 }
                 else if self.currentCommand == .getPatchInfo && self.isPatchInfoResponse {
                     print("\(self.timeStamp())  Patch Info received \(self.patchInfo)")
                     self.ackWakeupCommand()
-                }
-                else if self.currentCommand == .getSensorTime && self.isSingleBlockResponse { // single block response...
-                    print("\(self.timeStamp()) sensorTime -> single block response \(self.responseString)")
-                    print("\(self.timeStamp()) sensorTimeCalculated -> \(self.sensorTime)")
-                    self.delegate?.didUpdateSensorActiveTime(status: self.sensorTime)
-                    self.getNowGlucoseDataIndexCommand()
+
+
                 }
                 else if self.currentCommand == .getNowDataIndex && self.isSingleBlockResponse {
                     print("\(self.timeStamp()) getNowDataIndex -> single block response \(self.responseString)")
+
+                    print("dabear:: reached block getNowDataIndex")
+
                     self.getNowGlucoseDataCommand()
+
                 }
                 else if self.currentCommand == .getNowGlucoseData && self.isSingleBlockResponse {
                     print("\(self.timeStamp()) getNowGlucoseData -> single block response \(self.responseString)")
@@ -446,7 +456,28 @@ class BluConDeviceManager {
             self.discoverServices()
         }
     }
-    
+
+    private func getUnknowncommand010d0a00(){
+        self.currentCommand = .unknowncommand010d0a00
+        self.sendCommand(completion: { (status, error) in
+            if status == true {
+                print("getUnknowncommand010d0a00 command sent successfully...")
+            }
+        })
+    }
+
+
+    private func getUnknowncommand010d0b00(){
+        self.currentCommand = .unknowncommand010d0b00
+        self.sendCommand(completion: { (status, error) in
+            if status == true {
+                print("getUnknowncommand010d0a00 command sent successfully...")
+            }
+        })
+    }
+
+
+
     private func getPatchInfoCommand() {
         self.currentCommand = .getPatchInfo
         self.sendCommand(completion: { (status, error) in
@@ -461,7 +492,8 @@ class BluConDeviceManager {
         self.sendCommand(completion: { (status, error) in
             if status == true {
                 print("\(self.timeStamp()) ack command sent successfully...")
-                self.getSensorTimeCommand()
+                print("\(self.timeStamp()) getNowGlucoseDataIndexCommand...")
+                self.getNowGlucoseDataIndexCommand()
             }
             
         })
@@ -469,14 +501,23 @@ class BluConDeviceManager {
     
     private func getSensorTimeCommand() {
         self.currentCommand = .getSensorTime
-        self.sendCommand(completion: { (status, error) in
+        /*self.sendCommand(completion: { (status, error) in
             if status == true {
                 print("\(self.timeStamp()) getSensorTime command sent successfully...")
             }
             
+        }) */
+        //fake getsensortime success
+        /*let commandToBeSent = self.currentCommand.rawValue.hexStringToData()
+        let notifiedFuture: Future<Characteristic>? = self.writeCharacteristic?.write(data: commandToBeSent!)
+        notifiedFuture?.onSuccess(completion: { (characteristic) in
+            // command sent successfully....
+            completion(true, nil)
+
         })
+ */
     }
-    
+
     private func getNowGlucoseDataIndexCommand() {
         self.currentCommand = .getNowDataIndex
         self.sendCommand(completion: { (status, error) in

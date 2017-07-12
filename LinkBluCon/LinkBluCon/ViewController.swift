@@ -216,6 +216,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             print("device selected" + self.devicesDiscovered[indexPath.row].name)
             self.bluConManager.connectToPeripheral(peripheral: self.devicesDiscovered[indexPath.row])
+            print("device connected I think")
         }
     }
     

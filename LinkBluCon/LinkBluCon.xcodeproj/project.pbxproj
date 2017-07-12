@@ -270,12 +270,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Gorugantham, Ramu Raghu Vams";
 				TargetAttributes = {
 					72C7880B1E3AEFAE00948B43 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = GCJAQKG3A6;
+						DevelopmentTeam = L28K36YETG;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -514,11 +514,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = GCJAQKG3A6;
+				DEVELOPMENT_TEAM = L28K36YETG;
 				INFOPLIST_FILE = LinkBluCon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ambrosiasys.LinkBluCon;
+				PRODUCT_BUNDLE_IDENTIFIER = no.bjorninge.com.ambrosiasys.LinkBluCon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LinkBluCon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -535,11 +535,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GCJAQKG3A6;
+				DEVELOPMENT_TEAM = L28K36YETG;
 				INFOPLIST_FILE = LinkBluCon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ambrosiasys.LinkBluCon;
+				PRODUCT_BUNDLE_IDENTIFIER = no.bjorninge.com.ambrosiasys.LinkBluCon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LinkBluCon-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
