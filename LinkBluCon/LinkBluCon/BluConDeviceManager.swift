@@ -206,6 +206,9 @@ class BluConDeviceManager {
         // get the 3rd block 5th byte hex to decimal conversion
         // Index2 = (3rd Block[5] * 6)+ 4;
         nowGlucoseIndex2 = (Int(UInt64(getNowDataIndexResponse[(getNowDataIndexResponse.count-1)-5], radix:16)!) * 6) + 4
+        if (nowGlucoseIndex2 < 4 ) {
+            nowGlucoseIndex2 = nowGlucoseIndex2 + 96
+        }
         //offset = Index2 % 8;
         nowGlucoseOffset = nowGlucoseIndex2 % 8
         //Index3 = 3 + (Index2/8);
