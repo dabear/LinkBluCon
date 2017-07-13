@@ -416,21 +416,18 @@ class BluConDeviceManager {
                 }
                 
                 if self.isBluconACKResponse {
-                    let lastCommand = self.currentCommand.rawValue
-                    self.currentCommand = .initalState
-                    print("\(self.timeStamp()) ACK received from BluCon - \(self.responseString), last command was: \(lastCommand)\n----------------------------------------------------------------------------------")
-                    //!!!!!!!!!!!!!!
-                    //we receive an bluconACKResponse after both ackwakeup and after we ask the sensor to sleep
-
-                    //!!!!
-                    //only get glucose now that we know lastcommand sent was an bluconACKResponse after a  ackWakeup call
-                    if lastCommand == "810a00" {
-                        print("now getting getNowGlucoseDataIndexCommand")
-                        self.getNowGlucoseDataIndexCommand()
+                    // BluconACKRespons will come in two different situations
+                    // 1) after we have sent an ackwakeup command
+                    // 2) after we have a sleep command
+                    if self.currentCommand == .ackWakeup {
+                      //ack received
+                      print("Got ack, now getting getNowGlucoseDataIndexCommand")
+                      self.getNowGlucoseDataIndexCommand()
+                    } else {
+                      print("Got sleep ack, resetting initialstate!")
+                      self.currentCommand = .initalState
 
                     }
-
-                    print("now not getting glucosedataindexcommand!")
 
                 }
                 
