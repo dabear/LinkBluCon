@@ -408,6 +408,9 @@ class BluConDeviceManager {
         }
         
         receiveNotificationUpdatesFuture.onSuccess { (characteristic: Characteristic, data: Data?) in
+            var shouldGetTrendData = true
+            var shouldGetHistoricData = false
+
             if let responseData = data {
                 //self.sensorTime =  "Sensor active for (x) days, (y) hrs and (z) min"
                 self.responseString = NSMutableString.init(string: responseData.hexStringValue())
@@ -469,8 +472,32 @@ class BluConDeviceManager {
                     print("\(self.timeStamp()) now glucose value Updated Limitter algo (divided by 8.5)-> \(self.nowGlucoseValue8p5)")
 
                     self.delegate?.didReceiveUpdatedGlucoseValue(dateAndTime: self.timeStamp(), value: self.nowGlucoseValue)
+                    if shouldGetTrendData {
+                        self.getTrendData()
+
+                    } else if shouldGetHistoricData{
+                        self.getHistoricData()
+
+                    } else {
+                        self.sleepCommand()
+
+                    }
+                } else if self.currentCommand == .getTrendData {
+
+                    print ("dabear:: reached block getTrendData")
+                    print("\(self.timeStamp()) dabear:: trenddata response- \(self.responseString)")
+
                     self.sleepCommand()
+
+                } else if self.currentCommand == .getHistoricData {
+
+                    print ("dabear:: reached block getHistoricData")
+                    print("\(self.timeStamp()) dabear:: getHistoricData response- \(self.responseString)")
+
+                    self.sleepCommand()
+
                 }
+
             }
         }
         
@@ -500,6 +527,23 @@ class BluConDeviceManager {
         })
     }
 
+    private func getTrendData(){
+        self.currentCommand = .getTrendData
+        self.sendCommand(completion: { (status, error) in
+            if status == true {
+                print("getTrendData command sent successfully...")
+            }
+        })
+    }
+
+    private func getHistoricData(){
+        self.currentCommand = .getHistoricData
+        self.sendCommand(completion: { (status, error) in
+            if status == true {
+                print("getHistoricData command sent successfully...")
+            }
+        })
+    }
 
 
     private func getPatchInfoCommand() {
