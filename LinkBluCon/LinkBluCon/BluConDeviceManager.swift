@@ -191,13 +191,41 @@ class BluConDeviceManager {
     }
     
     private var nowGlucoseValue: String {
+        print("entering nowGlucoseValue()::")
         let blockPairs = parseSingleBlockResponseIntoByteArray(response: responseString.copy() as! String)
-        return decoder.getGlucose(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
+        print("  blockpairs are now:: \(blockPairs), nowglucoseoffsetis: \(nowGlucoseOffset)")
+        print("  blockPairs[7-nowGlucoseOffset] is: \(blockPairs[7-nowGlucoseOffset])")
+        print("  blockPairs[7-nowGlucoseOffset-1] is: \(blockPairs[7-nowGlucoseOffset-1])")
+        print("  blockPairs[nowGlucoseOffset] is: \(blockPairs[nowGlucoseOffset])")
+        print("  blockPairs[nowGlucoseOffset+1] is \(blockPairs[nowGlucoseOffset+1])")
+
+
+        let oldGetGlucose = decoder.getGlucose(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
+        let newGetGlucose = decoder.getGlucose(data: "\(blockPairs[nowGlucoseOffset+1])\(blockPairs[nowGlucoseOffset])")
+        print("  old way getting glucose with old indexing: \(oldGetGlucose)")
+        print("  new way getting glucose with new indexing: \(newGetGlucose)")
+        print("end nowGlucoseValue()")
+        return newGetGlucose
     }
 
     private var nowGlucoseValue8p5: String {
+        print("entering nowGlucoseValue8p5()::")
         let blockPairs = parseSingleBlockResponseIntoByteArray(response: responseString.copy() as! String)
-        return decoder.getGlucoseDividedBy8p5(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
+        print("  blockpairs are now:: \(blockPairs), nowglucoseoffsetis: \(nowGlucoseOffset)")
+        print("  blockPairs[7-nowGlucoseOffset] is: \(blockPairs[7-nowGlucoseOffset])")
+        print("  blockPairs[7-nowGlucoseOffset-1] is: \(blockPairs[7-nowGlucoseOffset-1])")
+        print("  blockPairs[nowGlucoseOffset] is: \(blockPairs[nowGlucoseOffset])")
+        print("  blockPairs[nowGlucoseOffset+1] is \(blockPairs[nowGlucoseOffset+1])")
+
+        let oldGetGlucose = decoder.getGlucoseDividedBy8p5(data: "\(blockPairs[7-nowGlucoseOffset])\(blockPairs[7-nowGlucoseOffset-1])")
+        let newGetGlucose = decoder.getGlucoseDividedBy8p5(data: "\(blockPairs[nowGlucoseOffset+1])\(blockPairs[nowGlucoseOffset])")
+
+        print("  old way getting glucose with old indexing: \(oldGetGlucose)")
+        print("  new way getting glucose with new indexing: \(newGetGlucose)")
+
+        print("end nowGlucoseValue8p5(()")
+        return newGetGlucose
+
     }
     //getGlucoseDividedBy8p5
 
@@ -206,6 +234,9 @@ class BluConDeviceManager {
         // get the 3rd block 5th byte hex to decimal conversion
         // Index2 = (3rd Block[5] * 6)+ 4;
         nowGlucoseIndex2 = (Int(UInt64(getNowDataIndexResponse[(getNowDataIndexResponse.count-1)-5], radix:16)!) * 6) + 4
+
+        // decrement index
+        nowGlucoseIndex2 -= 6;
         if (nowGlucoseIndex2 < 4 ) {
             nowGlucoseIndex2 = nowGlucoseIndex2 + 96
         }
@@ -223,8 +254,14 @@ class BluConDeviceManager {
     }
     
     func parseSingleBlockResponseIntoByteArray(response: String) -> [String] {
+        print("entering parseSingleBlockResponseIntoByteArray(response)::")
+        print("  response is \(response)")
         let startIndex = response.index(response.startIndex, offsetBy: 6)
         let endIndex = response.index(response.startIndex, offsetBy: response.characters.count-1)
+        print( " response.startIndex is: \(response.startIndex), response.endIndex is: \(response.endIndex)")
+        print("  calculated startIndex is: \(startIndex), calculated endIndex is: \(endIndex)")
+
+        print("ending parseSingleBlockResponseIntoByteArray(response)")
         return response[startIndex...endIndex].pairs
     }
     
@@ -408,7 +445,7 @@ class BluConDeviceManager {
         }
         
         receiveNotificationUpdatesFuture.onSuccess { (characteristic: Characteristic, data: Data?) in
-            var shouldGetTrendData = true
+            var shouldGetTrendData = false
             var shouldGetHistoricData = false
 
             if let responseData = data {
